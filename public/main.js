@@ -37,7 +37,7 @@ const msgBtn = document.getElementsByClassName('msgBtn')
 messagesForm.addEventListener('submit', (e) => {
     e.preventDefault()
     if (validateUserEmail()) {
-        nuevoMsn = { author: userEmail.value, body: messagesForm[0].value }
+        nuevoMsn = { user: userEmail.value, msn: messagesForm[0].value }
         socket.emit('nuevoMsn', nuevoMsn)
         messagesForm.reset()
     } else {
@@ -54,9 +54,9 @@ userEmail.addEventListener('click', () => {
 socket.on('allMessages', data => {
     const msgMapping = data.map(message => {
         return `<div>
-                    <b style="color: black">${message.author}</b>
+                    <b style="color: black">${message.user}</b>
                     <span>[ ${message.date} ]</span>
-                    <i style="color: white">=>  ${message.body}</i>
+                    <i style="color: white">=>  ${message.msn}</i>
                 </div>`
     })
     messagesContainer.innerHTML = msgMapping.join(' ')

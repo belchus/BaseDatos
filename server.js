@@ -11,8 +11,8 @@ import ContenedorSQL from './api/contenedorSQL.js'
 const app = express()
 const httpServer = new HttpServer(app)
 const io = new Socket(httpServer)
-const products = new ContenedorSQL(options.maria, 'misproductos')
-const messages = new ContenedorSQL(options.mySql, 'accesorios')
+const products = new ContenedorSQL(options.mySql, 'misproductos')
+const messages = new ContenedorSQL(options.sqlite3, 'mensajes')
 
 
 const PORT = 8080

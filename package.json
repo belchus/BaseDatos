@@ -4,8 +4,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
-    
+    "start": "nodemon server.js",
+    "create:tables": "node table.js"
   },
   "keywords": [],
   "author": "",
