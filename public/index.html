@@ -24,17 +24,36 @@
             <button class="sendBtn" type="submit">Enviar</button>
     </form>
     <div id="productsList"></div>
+
+
     <article id="MessagesCenter">
         <h2 class="mens">Historial de mensajes</h2>
         <div class="userInfo">
-            <label class="userEmailLbl" for="userEmail">Email: </label>
-            <input id='userEmail' type="email" name='userEmail'
-                placeholder="Ingrese su email para poder hablar con un asesor">
+            <div>
+                <label class="userEmail" for="userEmail">Email: </label>
+                <input class='userEmail' id='userEmail' type="email" name='userEmail' placeholder="Ingrese su email ">
+                <label class="userEmail" for="user">Nombre: </label>
+                <input class='userEmail' id='user' type="text" name='user' placeholder="Ingrese su nombre" required>
+            </div>
+            <div>
+                <label class="userEmail" for="userL">Apellido: </label>
+                <input class='userEmail' id='userL' type="text" name='userL' placeholder="Ingrese su apellido" required>
+                <label class="userEmail" for="age">Edad: </label>
+                <input class='userEmail' id='age' type="number" name='age' placeholder="Ingrese su edad" required>
+            </div>
+            <div>
+                <label class="userEmailLbl" for="nickname">Alias: </label>
+                <input class='userEmail' id='nickname' type="text" name='nickname' placeholder="Ingrese su alias" required>
+                <label class="userEmail" for="avatar">Avatar: </label>
+                <input class='userEmail' id='avatar' type="url" name='userAvatar' placeholder="Ingrese link a su avatar" required>
+            </div>
         </div>
+
         <div id="messagesContainer">
         </div>
+
         <form id="messagesForm">
-            <input id='messageContent' type="text" placeholder="Escriba su consulta" required>
+            <input id='messageContent' type="text" placeholder="Ingrese su mensaje" required>
             <button class="msgBtn" type="submit">Enviar</button>
         </form>
 

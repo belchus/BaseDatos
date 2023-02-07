@@ -27,6 +27,11 @@ await SQLite.schema.dropTableIfExists('mensajes')
 await SQLite.schema.createTable('mensajes', table => {
     table.increments('id').primary();
     table.string('user', 20).notNullable();
+    table.string('email', 30).notNullable();
+    table.string('userL', 20).notNullable();
+    table.string('age', 20).notNullable();
+    table.string('nickname', 20).notNullable();
+    table.string('avatar', 20).notNullable();
     table.string('msn', 255).notNullable();
     table.string('date', 15).notNullable()
 })

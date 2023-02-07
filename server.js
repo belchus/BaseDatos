@@ -1,10 +1,13 @@
 import express from 'express'
 import { Server as HttpServer } from 'http'
 import { Server as Socket} from 'socket.io'
-
+import normalizeM from './normalize.js'
 import options from './options/options.js'
 import ContenedorSQL from './api/contenedorSQL.js'
+//import Messages from './api/messages.js'
 
+import { faker } from "@faker-js/faker";
+faker.locale = 'es'
 //const apiProducts = require('./api/contenedor.js')
 //const apiMessages = require('./api/messages.js')
 
@@ -32,14 +35,40 @@ io.on('connection', async socket => {
         await products.save(data)
         io.sockets.emit('productsTable', await products.getAll())
     })
-    io.sockets.emit('allMessages', await messages.getAll())
+    io.sockets.emit('allMessages', {
+        normalizedM: normalizeM(await messages.getAll()),
+        dataLength: JSON.stringify(await messages.getAll()).length
+    })
 
-    socket.on('nuevoMsn', async data => {
+    socket.on('newMessage', async data => {
         data.date = new Date().toLocaleString()
-        console.log(data)
         await messages.save(data)
-        io.sockets.emit('allMessages', await messages.getAll())
+        io.sockets.emit('allMessages', {
+            normalizedM: normalizeM(await messages.getAll()),
+            dataLength: JSON.stringify(await messages.getAll()).length
+        })
     })
 
 })
 
+app.get('/test', (req, res) => {
+    let objetos = []
+    let cantidad = 10
+    let id = 20
+
+    if (req.query.cantidad) {
+        cantidad = req.query.cantidad
+    }
+
+    for (let i = 0; i < cantidad; i++) {
+        let title  =faker.commerce.productName()
+        let price = faker.commerce.price()
+        let thumbnail = faker.image.imageUrl()
+
+        objetos.push({ id, title, price, thumbnail })
+
+        id++
+    }
+
+    res.json(objetos)
+})
