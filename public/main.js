@@ -39,6 +39,7 @@ const age = document.getElementById('age')
 const nickname = document.getElementById('nickname')
 const avatar = document.getElementById('avatar')
 const messages = document.getElementsByClassName('messages')
+const messagesCenter = document.getElementsByClassName('messagesCenter')
 
 const userDataValidations = (user, userL, age, nickname, avatar) => {
     if (user == '' || userL == '' || age == '' || nickname == '' || avatar == ''
@@ -48,7 +49,7 @@ const userDataValidations = (user, userL, age, nickname, avatar) => {
 
 messagesForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    const verUser = userDataValidations(user.value, userL.value, age.value, nickname.value, avatar.value,email.value, )
+    const verUser = userDataValidations(user.value, userL.value, age.value, nickname.value, avatar.value, email.value, )
     if (validateUserEmail() && verUser){
         newMessage = {
             author: {
@@ -81,15 +82,15 @@ const postsSchema = new normalizr.schema.Entity('posts', { mensajes: [postSchema
 socket.on('allMessages', data => {
     const { normalizedM, dataLength } = data
     console.log('Normalizados:', normalizedM)
-    const denormalized = normalizr.denormalize(normalizedM.result, postsSchema, normalizedM.entities)
+    const denormalizedM = normalizr.denormalize(normalizedM.result, postsSchema, normalizedM.entities)
     console.log('Desnormalizados:', denormalizedM)
     const allNormalized = JSON.stringify(normalizedM).length
     let compressionRatio
-    originalDataLength === 2
+    dataLength === 2
         ? compressionRatio = 0
         : compressionRatio = ((allNormalized * 100) / dataLength).toFixed(2)
-    messagesCenterTitle[0].innerText = `Centro de Mensajes - Compresión: ${compressionRatio}%`
-    const mapping = denormalized.mensajes.map(message => {
+    messagesCenter.innerText = `Centro de Mensajes - Compresión: ${compressionRatio}%`
+    const mapping = denormalizedM.mensajes.map(message => {
         return `<div id='messageInfo'>
                     <div'>
                     <div>
@@ -122,3 +123,6 @@ const validateUserEmail = () => {
     emailPattern.test(email.value) ? validEmail = true : validEmail = false
     return validEmail
 }
+
+   
+    
